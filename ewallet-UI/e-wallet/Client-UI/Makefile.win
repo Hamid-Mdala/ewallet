@@ -1,0 +1,40 @@
+# Project: user-interface
+# Makefile created by Embarcadero Dev-C++ 6.3
+
+CPP      = g++.exe -D__DEBUG__
+CC       = gcc.exe -D__DEBUG__
+WINDRES  = windres.exe
+OBJ      = main.o FileManager.o Implementations.o Validations.o client.o
+LINKOBJ  = main.o FileManager.o Implementations.o Validations.o client.o
+LIBS     = -L"D:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/lib32" -static-libgcc "D:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/lib32/libws2_32.a" -m32 -g3
+INCS     = -I"D:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"D:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"D:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include"
+CXXINCS  = -I"D:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"D:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"D:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"D:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++"
+BIN      = user-interface.exe
+CXXFLAGS = $(CXXINCS) -m32 -g3
+CFLAGS   = $(INCS) -m32 -g3
+DEL      = D:\Program Files (x86)\Embarcadero\Dev-Cpp\DevCpp.exe INTERNAL_DEL
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${DEL} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+main.o: main.c
+	$(CC) -c main.c -o main.o $(CFLAGS)
+
+FileManager.o: FileManager.c
+	$(CC) -c FileManager.c -o FileManager.o $(CFLAGS)
+
+Implementations.o: Implementations.c
+	$(CC) -c Implementations.c -o Implementations.o $(CFLAGS)
+
+Validations.o: Validations.c
+	$(CC) -c Validations.c -o Validations.o $(CFLAGS)
+
+client.o: client.c
+	$(CC) -c client.c -o client.o $(CFLAGS)
