@@ -15,6 +15,7 @@ bool make_search_query() {
 	bool exists;
 	FILE *fptr = fopen("Query.txt", "r"); //mode r reads and writes content to the file without changing the existing content
     if (fptr == NULL) {
+    	system("CLS");
         printf("Error: Unable to open the Query file/n");
         exit(1);
     } else {
@@ -61,8 +62,9 @@ void registration() {
 		            scanf("%s", last_name);
 		            exists = validate(last_name);       
 		        	if(exists) {
+		        		system("CLS");
 		        		register_user(phone_number, password, first_name, last_name);
-		        		helperSendFileLines("user_data.txt"); //sending the lines inside the user data to the server 
+		        		UtilitySendFileLines("user_data.txt"); //sending the lines inside the user data to the server 
 					} 
 				} else {
 		        	printf("Invalid Last Name length\n");
@@ -156,6 +158,7 @@ static bool beforeNavigationDashboard() {
 				justConnect();
 				registration();
 			} else {
+				system("CLS");
 				printf("Wrong option\n");
 			}
 	    } 

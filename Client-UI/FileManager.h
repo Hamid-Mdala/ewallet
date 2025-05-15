@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-bool helperSendFileLines(const char *filename);
+bool UtilitySendFileLines(const char *filename);
 
 bool register_user(const char *phone_number, const char *password, const char *first_name, const char *last_name);
  

@@ -8,9 +8,10 @@ int handleMoney();
 int handleAirtime();
 
 //this handles the 
-bool helperSendFileLines(const char *filename) {
+bool UtilitySendFileLines(const char *filename) {
 	FILE *readFile = fopen(filename, "r");
 	if(readFile == NULL) {
+		system("CLS");
 		printf("Error: Unable to open teh user details file\n");
 		exit(1); 
 	}

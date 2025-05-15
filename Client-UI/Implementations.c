@@ -23,6 +23,7 @@ bool agentAfterNavigationDashboard(int choice) {
 					
 					FILE *send = fopen("transactions.txt", "w");  //write in normal mode
 					if(send == NULL) {
+						system("CLS");
 						printf("Error opening the file\n");
 						return -1;
 					} else {
@@ -31,7 +32,8 @@ bool agentAfterNavigationDashboard(int choice) {
 						ALSO INCLUDE A SECURITY MECHANISM BEFORE THE AGENT SENDS MONEY*/
 						fprintf(send, "FILE|transactions|%s,%dMK\n", phone_number, amount);
 						fclose(send);
-						helperSendFileLines("transactions.txt");
+						UtilitySendFileLines("transactions.txt");
+						printf("You have successfully sent %d to the number: %s\n", amount, phone_number);
 					}
 					
 				} else {
@@ -40,16 +42,26 @@ bool agentAfterNavigationDashboard(int choice) {
 			} else {
 				printf("The phone number is invalid\n");
 			}
+			
+			printf("=============================================================================================\n");
 			break;
 		case 2: //helps the agent get the user data, to know them and communicate effectively  	
-			justConnect(); 
+			printf("HERE YOU WILL RECEIVE THE USER DATA FILE FROM THE CLIENTS RIGHT AFTER THE CLIENT REGISTERS\n");
+			printf("===========================================================================================\n");
+			justConnect();
+			printf("===========================================================================================\n");
 			break;
 		case 3: //the agent sends the user datea file to the clients 
-			helperSendFileLines("user_data.txt");  
+			printf("HERE YOU WILL SEND THE USER DATA FILE TO OTHER CLIENTS\n");
+			printf("========================================================\n");
+			UtilitySendFileLines("user_data.txt"); 
+			printf("========================================================\n"); 
+			break;
+		case 4: //EXIT
+			printf("Exiting the program.\n"); 
 			break;
 		default: 
-			printf("Error: Invalid choice option\n");
-			return -1;
+			printf("Invalid choice option.\n");
 			break;
 	}	
 }
