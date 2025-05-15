@@ -1,0 +1,4 @@
+1. add time duration for the tokens the users purchase
+2. add charitable NGOs into the system so that user could send to them though our server
+3. Make sure we have content creation for the services both the client & agent offer into the publishing content cite
+4. Make sure we have encryption of the data being transfered 

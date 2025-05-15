@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=1
 CompilerSettings=0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0
-UnitCount=2
+UnitCount=1
 
 [VersionInfo]
 Major=1
@@ -52,16 +52,6 @@ SyncProduct=1
 
 [Unit1]
 FileName=server.c
-CompileCpp=0
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit2]
-FileName=Untiltled.c
 CompileCpp=0
 Folder=
 Compile=1
