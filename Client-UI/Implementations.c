@@ -6,6 +6,8 @@
 bool agentAfterNavigationDashboard(int choice) {
 	switch(choice) {
 		case 1:
+			printf("HERE YOU ARE ABLE TO SEND MONEY TO THE CLIENT WHO WANT TO DEPOSIT MONEY INTO THEIR ACCOUNTS\n");
+			printf("=============================================================================================\n");
 			printf("Enter phone number: ");
 			char phone_number[BUFFER_SIZE];
 			scanf("%s", phone_number);
@@ -33,10 +35,10 @@ bool agentAfterNavigationDashboard(int choice) {
 					}
 					
 				} else {
-					printf("Unable to find the phone number in the files\n");
+					printf("The phone number does not exists in our credentials\n");
 				}
 			} else {
-				printf("Error: the phone number is invalid\n");
+				printf("The phone number is invalid\n");
 			}
 			break;
 		case 2: //helps the agent get the user data, to know them and communicate effectively  	
@@ -55,10 +57,13 @@ bool agentAfterNavigationDashboard(int choice) {
 bool customerAfterNavigationDashboard(int choice) {
    switch (choice) {
 	   	case 1: //BUY TOKENS
+			printf("HERE AFTER FULL INTERGRATION YOU WILL PURCHASE TOKENS USED FOR INTERNET ACESS, VOICE CALLS & SMS MESSAGING\n");
+			printf("===========================================================================================================\n");
 			printf("1. Purchase 200 tokens with MK200\n");
 			printf("2. Purchase 300 tokens with MK300\n");
 			printf("Enter your choice: ");
 			scanf("%d", &choice);
+			system("CLS");
 			if(choice == 1) {
 		   	
 				int amount;
@@ -67,6 +72,7 @@ bool customerAfterNavigationDashboard(int choice) {
 			
 				FILE *check = fopen("transactions.txt", "r");
 			    if(check == NULL) {
+			    	system("CLS");
 			    	printf("Error unable open file, because you do not have your saving yet\n");
 			    	return -1;
 				} else {
@@ -79,6 +85,7 @@ bool customerAfterNavigationDashboard(int choice) {
 					}
 					
 					if(p_number == NULL && saving == NULL) {
+						system("CLS");
 						printf("You have no money in your trasaction file\n");
 						return -1;
 					}
@@ -86,28 +93,35 @@ bool customerAfterNavigationDashboard(int choice) {
 					int money = atoi(saving);
 					int deductions = money - amount;  //deducted the money extracted from the files with the money the client enters
 					
-					if(deductions <= 0) {
-						printf("Your saving are very low to buy tokens\n");
-						return -1;
-					} else {
+					if(money >= 200) {  //lets say to buy the 200 tokens your saving have to be more than 200 only
 						/*[FUTURE UPDATE]
 						ABLE TO MAKE MONEY WHEN THE CLIENT USES OUR SERVICES LIKE THIS
 						SHOULD BE ABLE TO USE THE PASSWORD BEFORE THE USER SENDS MONEY TO OTHER CLIENTS OR THE AGENTS
 						*/
 						FILE *send = fopen("transactions.txt", "w");
 						if(send == NULL) {
+							system("CLS");
 							printf("Error unable open file\n");
 							return -1;
 						} else {
-							printf("You have successfully bought the 200 tokens\n");
+							system("CLS");
+							if(deductions <= 0) {  //lets say when we deduct we have only less than or equal to 0
+								printf("Your saving are very low to buy tokens\n");
+								return -1;
+							}
+							system("CLS");	 
+							printf("You have successfully bought the 200 tokens at %dMK\n", amount);
 							printf("Your balance is %d\n", deductions);
 							fprintf(send, "FILE|transactions|%s,%dMK", p_number, deductions);  //updating the file with new amount
 							fclose(send);
 						}
 					
+					} else {   //lets say we have 50MK as the money its less than the requirement to buy the 200 tokens at 200MK
+						printf("Insufficient funds.sorry you can not purchase 200 tokens for 200MK becuase your saving are %dMK\n", money);
 					}
 				}
 				
+				printf("===========================================================================================================\n");
 				//clean up
 				fclose(check);	
 		   } else if(choice == 2) {
@@ -118,6 +132,7 @@ bool customerAfterNavigationDashboard(int choice) {
 			
 				FILE *check = fopen("transactions.txt", "r");
 		    	if(check == NULL) {
+		    		system("CLS");
 		    		printf("Error unable open file, because you do not have your saving yet\n");
 		    		return -1;
 				} else {
@@ -131,6 +146,7 @@ bool customerAfterNavigationDashboard(int choice) {
 					}
 				
 					if(p_number == NULL && saving == NULL) {
+						system("CLS");
 						printf("You have no money in your trasaction file\n");
 						return -1;
 					}
@@ -138,27 +154,35 @@ bool customerAfterNavigationDashboard(int choice) {
 					int money = atoi(saving);
 					int deductions = money - amount;  //deducted the money extracted from the files with the money the client enters
 				
-					if(deductions <= 0) {
-						printf("Your saving are very low to buy tokens\n");
-						return -1;
-					} else {
+					if(money >= 300) {  //lets say to buy the 300 tokens your saving have to be more than OR equal to 300 only
 						/*[FUTURE UPDATE]
 						ABLE TO MAKE MONEY WHEN THE CLIENT USES OUR SERVICES LIKE THIS
 						SHOULD BE ABLE TO USE THE PASSWORD BEFORE THE USER SENDS MONEY TO OTHER CLIENTS OR THE AGENTS
 						*/
 						FILE *send = fopen("transactions.txt", "w");
 						if(send == NULL) {
+							system("CLS");
 							printf("Error unable open file\n");
 							return -1;
 						} else {
-							printf("You have successfully bought the 200 tokens\n");
+							if(deductions <= 0) {  //lets say when we deduct we have only less than or equal to 0
+								system("CLS");
+								printf("Your saving are very low to buy tokens\n");
+								exit(1);  //make it to exit..quit the terminal
+							}
+							system("CLS");
+							printf("You have successfully bought the 200 tokens at %dMK\n", amount);
 							printf("Your balance is %d\n", deductions);
 							fprintf(send, "FILE|transactions|%s,%dMK", p_number, deductions);  //updating the file with new amount
 							fclose(send);
 						}
-					}	
+					
+					} else {  //lets say we have 200MK as the money its less than the requirement to buy the 300 tokens at 300MK
+						printf("Insufficient funds.sorry you can not purchase 300 tokens for 300MK becuase your saving are %dMK\n", money);
+					}
 				}
 				
+				printf("===========================================================================================================\n");
 				//clean up
 				fclose(check);
 		   } else {
@@ -167,6 +191,8 @@ bool customerAfterNavigationDashboard(int choice) {
 		   }
 		   break;  
 	   	case 2: //SEND CASH TO ANOTHER NUMBER
+			printf("HERE YOU WILL BE ABLE TO SEND CASH TO OTHER USERS'\n");
+			printf("=====================================================");
 			printf("Enter the phone number: ");	
 			char phone_number[BUFFER_SIZE];
 			scanf("%s", phone_number);
@@ -176,11 +202,12 @@ bool customerAfterNavigationDashboard(int choice) {
 				exists = searchFirstField("user_data.txt", phone_number);
 		    	if(exists) {
 		    		int amount;
-		    		printf("Enter the amount you want to send: ");
+					printf("Enter the amount you want to send: ");
 		    		scanf("%d", &amount);
 		    		
 		    		FILE *send = fopen("transactions.txt", "r");
 		    		if(send == NULL) {
+		    			system("CLS");
 		    			printf("Error unable open file, because you do not have your saving yet\n");
 		    			return -1;
 					} else {
@@ -191,42 +218,54 @@ bool customerAfterNavigationDashboard(int choice) {
 							p_number = strtok(line, ",");
 							saving = strtok(NULL, "\n");
 						}
-						if(p_number == NULL && saving == NULL) {
+						if(p_number == NULL && saving == NULL) {  //implementation helping me to get the saving in the client whos sending the money
+							system("CLS");
 							printf("You have no money in your saving in our transaction file\n");
 							return -1;
 						}
 						int money = atoi(saving);
 						int deductions = money - amount;  //deducted the money extracted from the files with the money the client enters
-						if(deductions <= 0) {
-							printf("Your saving are very low to share to other people\n");
-							return -1;
-						} else {
+						
+						if(money >= amount) {  //lets say we have 90000 as the money and 500 as the amount
 							/*[FUTURE UPDATE]
 							ABLE TO MAKE MONEY WHEN THE CLIENT USES OUR SERVICES LIKE THIS
 							SHOULD BE ABLE TO USE THE PASSWORD BEFORE THE USER SENDS MONEY TO OTHER CLIENTS OR THE AGENTS
 							*/
-							FILE *approveSend = fopen("trasanction.txt", "w");
-							if(approveSend == NULL) {
-								printf("Error unable to open file\n");
+							FILE *send = fopen("transactions.txt", "w");
+							if(send == NULL) {
+								system("CLS");
+								printf("Error unable open file\n");
 								return -1;
+							} else {
+								if(deductions <= 0) {  //lets say when we deduct we have only less than or equal to 0
+									system("CLS");
+									printf("Your saving are very low to buy tokens\n");
+									return -1;
+								}
+								system("CLS");	 
+								printf("You have successfully sent %d to the number: %s\n", amount, phone_number);
+								printf("Your balance is %d\n", deductions);
+								fprintf(send, "FILE|transactions|%s,%dMK", phone_number, deductions);  //updating the file with new amount
+								fclose(send);
 							}
-							
-							printf("Your balance is %d\n", deductions);
-							fprintf(send, "FILE|transactions|%s,%dMK", p_number, deductions);  //updating the file with new amount
-							fclose(approveSend);
-							helperSendFileLines("transactions.txt");
-							
-							printf("The transactions you made to the other client is being sent successfull\n");
+						
+						} else {  //lets say we have 500 as the money and 90000 as the amount
+							printf("Insufficient funds....\n");
 						}
 					}
+				} else {
+					printf("The phone number does not exists in our credentials\n");
 				}
-			} 
+			} else {
+				printf("The phone number is invalid\n");
+			}
 			
+			printf("====================================================="); 
 			break;
 	   	case 3:  /*[FUTURE UPDATE]
 		   the user is able to view a variety of things like; user data file, transactions history and money balance*/
 			printf("HERE YOU ARE ABLE TO VIEW YOUR PROFILE DETAILS:\n");
-			printf("=========================================\n");
+			printf("================================================\n");
 			FILE *view = fopen("user_data.txt", "r");
 			if(view == NULL) {
 				printf("Error unable to open file\n");
@@ -242,13 +281,14 @@ bool customerAfterNavigationDashboard(int choice) {
 					printf("FIRST NAME: %s\n", field3);
 					printf("LAST NAME: %s\n", field4);
 				}
-				printf("=========================================\n");	
+				printf("================================================\n");	
 			} 
-	
 			break;
 	   	case 4: //RECEIVE MONEY FROM THE AGENT OR OTHER CLIENTS
+			printf("HERE YOU WILL CONNECT TO THE SERVER INORDER TO RECIEVE MONEY FROM OTHER USERS'\n");
+			printf("===============================================================================\n");	
 			justConnect();
-			
+			printf("===============================================================================\n");	
 	    	break;
 		case 5: //EXIT
 			printf("Exiting the program.\n");

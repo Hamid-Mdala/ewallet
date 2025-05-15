@@ -32,6 +32,7 @@ void registration() {
 	FILE* openFile = fopen("user_data.txt", "a");
 	if(openFile == NULL) {
 		printf("Error opening the file\n");
+		exit(1);
 	}
 	
 	bool exists;
@@ -88,6 +89,7 @@ static bool beforeNavigationDashboard() {
 			char ussd[BUFFER_SIZE];
 			printf("Enter USSD code: "); //its unstructured supplementary service data
 			scanf("%s", ussd);
+			system("CLS");
 			if(strcmp(ussd,"*101#") == 0) {
 				/* [FUTURE UPDATES] 
 				next time once the user enters the ussd just_connect(), connect them to the server
